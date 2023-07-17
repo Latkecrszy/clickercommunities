@@ -1,1 +1,1 @@
-# Cookie Communities
+# Clicker Communities
