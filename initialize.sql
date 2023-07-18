@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `id` int NOT NULL AUTO_INCREMENT,
     `username` varchar(25),
     `email` varchar(320),
-    `password` varchar(50),
+    `password` varchar(200),
     PRIMARY KEY (`id`)
 );
 

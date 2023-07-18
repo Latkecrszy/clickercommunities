@@ -20,7 +20,8 @@
             $_SESSION['email'] = strtolower($_POST['email']);
             $session_id = uniqid();
             $_SESSION['id'] = $session_id;
-            $sth = $dbh->prepare("INSERT INTO sessions (session_id, email) VALUES ($session_id, :email)");
+            $sth = $dbh->prepare("INSERT INTO sessions (session_id, email) VALUES (:session_id, :email)");
+            $sth->bindValue(':session_id', $session_id);
             $sth->bindValue(':email', strtolower($_POST['email']));
             if ($sth->execute()) {
                 header('Location: dashboard.php');
