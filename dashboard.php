@@ -10,16 +10,14 @@
         require_once "config.php";
         $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
         $email = $_SESSION['email'];
-        if (isset($_SESSION['email']) && isset($email))
-        $sth = $dbh->prepare('SELECT id FROM sessions WHERE email=:email AND session_id=:id');
-        $sth->bindValue(':email', $email);
-        $sth->bindValue(':id', $_SESSION['id']);
-        $sth->execute();
-        if (!$sth->fetch()) {
+        if (!logged_in($dbh, $email, $_SESSION['id'])) {
             header('Location: login.php');
         }
         echo "<p>$email</p>";
         ?>
-
+        <header>
+            <a href="home.php" class="header-logo"></a>
+            <a href="logout.php" class="header-link">Log out</a>
+        </header>
     </body>
 </html>
