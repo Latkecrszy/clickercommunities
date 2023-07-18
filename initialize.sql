@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `id` int NOT NULL AUTO_INCREMENT,
     `username` varchar(25),
     `email` varchar(320),
+    `password` varchar(50),
     PRIMARY KEY (`id`)
 );
 
@@ -46,6 +47,14 @@ CREATE TABLE IF NOT EXISTS `purchased` (
     `count` int,
     PRIMARY KEY (`id`)
 );
+
+
+CREATE TABLE IF NOT EXISTS `sessions` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `session_id` varchar(30),
+    `email` varchar(320),
+    PRIMARY KEY (`id`)
+)
 
 
 /*Change cost of item based on count*/
