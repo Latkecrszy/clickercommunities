@@ -1,0 +1,84 @@
+:root {
+    --darkgray: #1d1d1d;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    color: white;
+}
+
+header {
+    height: 150px;
+    background: var(--darkgray);
+    width: 98%;
+    border-radius: 3px;
+    margin: 10px 1%;
+    padding: 5px 8px;
+    box-sizing: border-box;
+}
+
+.header-link {
+    text-decoration: none;
+}
+
+.underline {
+    position: relative;
+}
+
+.underline:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    left: 0;
+    top: 23px;
+    background-color: white;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.underline:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+#page {
+    display: flex;
+    width: 100%;
+    height: 100%
+}
+
+#personal {
+    width: 65%;
+    display: flex;
+}
+
+#click-area {
+    width: 80%;
+}
+
+#upgrades {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.upgrade {
+
+}
+
+#community {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#join, #create {
+    height: 48%;
+    width: 94%;
+    margin: 3% 1%;
+    background: var(--darkgray);
+    border-radius: 3px;
+}
