@@ -14,31 +14,33 @@
         session_start();
         require_once "config.php";
         $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
+        if (!(isset($_SESSION['email']) && isset($_SESSION['id']))) {
+            header('Location: login.php');
+        }
         $email = $_SESSION['email'];
         if (!logged_in($dbh, $email, $_SESSION['id'])) {
             header('Location: login.php');
         }
-        echo "<p>$email</p>";
         ?>
         <header>
             <h1>Clicker Communities</h1>
             <a href="home.php" class="header-logo"></a>
             <a href="logout.php" class="header-link underline">Log out</a>
         </header>
-        <div id="page">
-            <div id="personal">
-                <div id="click-area"></div>
-                <div id="upgrades"></div>
+        <div id="personal">
+            <div id="click-area">
+                <img src="coconut.png" id="coconut" alt="coconut">
+            </div>
+            <div id="upgrades"></div>
+        </div>
+
+        <div id="community">
+            <div id="join">
+
             </div>
 
-            <div id="community">
-                <div id="join">
+            <div id="create">
 
-                </div>
-
-                <div id="create">
-
-                </div>
             </div>
         </div>
     </body>

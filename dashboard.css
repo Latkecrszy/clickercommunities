@@ -3,22 +3,36 @@
 }
 
 body {
+    display: grid;
+    grid-template-columns: 0.65fr 0.35fr;
+    grid-template-rows: 20fr 40fr 40fr;
+    row-gap: 10px;
     font-family: Montserrat, sans-serif;
     color: white;
+    background: #020101;
+    height: 100vh;
+    padding: 10px;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 header {
-    height: 150px;
+    height: 100%;
+    grid-column-start: 1;
+    grid-column-end: -1;
     background: var(--darkgray);
-    width: 98%;
+    width: 100%;
     border-radius: 3px;
-    margin: 10px 1%;
-    padding: 5px 8px;
+    padding: 5px 12px;
     box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header-link {
     text-decoration: none;
+    color: white;
 }
 
 .underline {
@@ -46,22 +60,31 @@ header {
 #page {
     display: flex;
     width: 100%;
-    height: 100%
+    height: 100vh;
+    margin: 0;
 }
 
 #personal {
-    width: 65%;
+    grid-column-end: 1;
+    grid-column-start: 1;
+    grid-row-start: 2;
+    grid-row-end: -1;
     display: flex;
+    border: 2px solid var(--darkgray);
+    border-radius: 3px;
+    box-sizing: border-box;
 }
 
 #click-area {
     width: 80%;
+    position: relative;
 }
 
 #upgrades {
     width: 20%;
     display: flex;
     flex-direction: column;
+    border: 1px solid var(--darkgray);
 }
 
 .upgrade {
@@ -69,16 +92,34 @@ header {
 }
 
 #community {
-    width: 35%;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-end: -1;
+    grid-row-start: 2;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 #join, #create {
-    height: 48%;
-    width: 94%;
-    margin: 3% 1%;
+    height: 50%;
+    width: 98%;
+    margin: 0 1% 3% 2%;
     background: var(--darkgray);
     border-radius: 3px;
+}
+
+#coconut {
+    height: 300px;
+    width: 300px;
+    transition: 0.2s ease-in-out;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#coconut:hover {
+    height: 350px;
+    width: 350px;
 }
