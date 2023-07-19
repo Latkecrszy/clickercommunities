@@ -88,7 +88,31 @@ header {
 }
 
 .upgrade {
+    display: grid;
+    grid-template-columns: 30fr 60fr;
+    grid-template-rows: 50fr 50fr;
+    padding: 7px 5px 2px 5px;
+    box-sizing: border-box;
+    margin: 2px 3px;
+    background: var(--darkgray);
+    height: 100px;
+}
 
+.upgrade-count {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    font-size: 30px;
+    margin: 0;
+}
+
+.upgrade-name {
+    grid-column-start: 2;
+    margin: 0;
+}
+
+.upgrade-description {
+    grid-column-start: 1;
+    grid-column-end: -1;
 }
 
 #community {
@@ -117,9 +141,20 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 
 #coconut:hover {
     height: 350px;
     width: 350px;
+}
+
+#coconut.clicked {
+    transition: 0.1s;
+    height: 325px !important;
+    width: 325px !important;
+}
+
+#coconut-counter {
+    text-align: center;
 }

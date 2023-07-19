@@ -23,12 +23,21 @@
                 $sth->bindValue(':email', $email);
                 $sth->bindValue(':password', password_hash($_POST['password'], PASSWORD_DEFAULT));
                 if ($sth->execute()) {
+                    $sth3 = $dbh->prepare('SELECT id FROM users WHERE email=:email');
+                    $sth3->bindValue(':email', $email);
+                    $sth3->execute();
+                    $admin_id = $sth3->fetch()['id'];
                     $_SESSION['email'] = $email;
                     $session_id = uniqid();
-                    $_SESSION['id'] = $session_id;
+                    $_SESSION['session_id'] = $session_id;
+                    $_SESSION['admin_id'] = $admin_id;
                     $sth = $dbh->prepare("INSERT INTO sessions (session_id, email) VALUES (:session_id, :email)");
                     $sth->bindValue(':session_id', $session_id);
                     $sth->bindValue(':email', $email);
+                    $sth2 = $dbh->prepare("INSERT INTO communities (name, type, admin_id, coconuts) VALUES (:name, 'personal', :admin_id, 0)");
+                    $sth2->bindValue(':name', $_POST['username']);
+                    $sth2->bindValue(':admin_id', $admin_id);
+                    $sth2->execute();
                     if ($sth->execute()) {
                         header('Location: dashboard.php');
                     }

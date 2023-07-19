@@ -21,6 +21,5 @@
             <input type="password" name="password" placeholder="Password" maxlength="50" required>
             <button type="submit">Sign up</button>
         </form>
-
     </body>
 </html>
