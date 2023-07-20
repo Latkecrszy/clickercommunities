@@ -158,3 +158,41 @@ header {
 #coconut-counter {
     text-align: center;
 }
+
+.community-header {
+    text-align: center;
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+.community-input {
+    width: 70%;
+    height: 30px;
+    border: 2px solid #020101;
+    border-radius: 3px;
+    transition: 0.2s;
+    background: none;
+}
+
+.community-input::placeholder {
+    color: white;
+    font-size: 15px;
+}
+
+.community-input:focus {
+    border: 4px solid #020101;
+    filter: brightness(1.2);
+    outline: none;
+}
+
+#join {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#join-input {
+    margin-top: -50px;
+}
+

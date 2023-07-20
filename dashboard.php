@@ -76,11 +76,17 @@
 
         <div id="community">
             <div id="join">
-
+                <h1 class="community-header">Join Community</h1>
+                <input type="text" class="community-input" id="join-input" placeholder="Search for communities">
             </div>
 
             <div id="create">
-
+                <h1 class="community-header">Create Community</h1>
+                <div id="create-inputs">
+                    <input type="text" id="create-input-name" class="community-input">
+                    <input type="text" id="create-input-description" class="community-input">
+                    <button type="submit" onclick="createCommunity()">Create</button>
+                </div>
             </div>
         </div>
     </body>
