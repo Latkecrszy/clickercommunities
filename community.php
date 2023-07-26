@@ -36,10 +36,6 @@ $purchased = convert_array($sth4->fetchAll(), 'item_name');
 ?>
 <html lang="en">
     <head>
-        <script>
-            let admin = <?=json_encode($admin, JSON_HEX_TAG);?>;
-            console.log(admin)
-        </script>
         <title>Community</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,8 +57,9 @@ $purchased = convert_array($sth4->fetchAll(), 'item_name');
                 <h2 id="coconut-counter"></h2>
                 <img draggable="false" src="coconut.png" onclick="addCoconuts(1); animateCoconut()" id="coconut" alt="coconut">
             </div>
-            <div id="upgrades">
-                <?php
+            <?php
+            if ($admin) {
+                echo '<div id="upgrades">';
                 foreach($shop as $item) {
                     $name = $item['name'];
                     $cost = $item['cost'];
@@ -84,8 +81,9 @@ $purchased = convert_array($sth4->fetchAll(), 'item_name');
                     echo "<p class='upgrade-cost'>$cost</p>";
                     echo "</div>";
                 }
-                ?>
-            </div>
+                echo "</div>";
+            }
+            ?>
         </div>
     </body>
     <script>
@@ -94,5 +92,10 @@ $purchased = convert_array($sth4->fetchAll(), 'item_name');
         let shop = <?=json_encode($shop, JSON_HEX_TAG);?>;
         console.log(shop)
         document.getElementById('coconut-counter').innerText = 'Coconuts: ' + coconuts
+        let admin = <?=json_encode($admin, JSON_HEX_TAG);?>;
+        console.log(admin)
+        if (!admin) {
+            document.getElementById('click-area').classList.add('member')
+        }
     </script>
 </html>
