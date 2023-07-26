@@ -9,14 +9,21 @@ if (logged_in() && isset($_GET['name']) && strlen($_GET['name']) <= 50 && isset(
     $sth->bindValue(':description', $_GET['description']);
     $sth->bindValue(':admin_id', $_SESSION['admin_id']);
     $sth->execute();
+    $sth2 = DBH->prepare("SELECT id FROM communities ORDER BY id DESC");
+    $sth2->execute();
+    $id = $sth2->fetch()['id'];
+    $sth3 = DBH->prepare("INSERT INTO membership (`community_id`, `user_id`) VALUES (:community_id, :user_id)");
+    $sth3->bindValue(':community_id', $id);
+    $sth3->bindValue(':user_id', $_SESSION['admin_id']);
+    $sth3->execute();
+} else {
+    $id = 'error';
 }
 ?>
 <html lang="en">
     <head>
         <title>Creating community...</title>
     </head>
-    <body>
-
-    </body>
+    <body><?="$id"?></body>
 </html>
 

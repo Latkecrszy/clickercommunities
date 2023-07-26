@@ -16,6 +16,12 @@ function addCoconuts(newCoconuts) {
     coconutsToAdd += newCoconuts
     coconuts += newCoconuts
     document.getElementById('coconut-counter').innerText = 'Coconuts: ' + Math.round(coconuts)
+    /*shop.forEach(e => {
+        if (!document.getElementById(e['item_name']).classList.contains('blurred') && parseInt(e['cost']) < coconuts) {
+
+        }
+    })*/
+
 }
 
 let updateAutomaticCoconut = setInterval(async () => {
@@ -36,10 +42,15 @@ async function animateCoconut() {
 
 
 async function createCommunity() {
-    const name = document.getElementById('create-input-name')
-    const description = document.getElementById('create-input-description')
-    await fetch(`create-community.php?name=${name}&description=${description}`)
-    location.replace('/communities.php?')
+    const name = document.getElementById('create-input-name').value
+    const description = document.getElementById('create-input-description').value
+    let id = await fetch(`create-community.php?name=${name}&description=${description}`)
+        .then(resp => resp.text())
+    id = id.split('<body>')[1].split('</body>')[0]
+    console.log('gonna replace')
+    if (!Number.isNaN(id)) {
+        location.replace(`community.php?id=${id}`)
+    }
 }
 
 

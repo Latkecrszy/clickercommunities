@@ -1,3 +1,10 @@
+:root {
+    --darkgray: #1d1d1d;
+    --blue: #142539;
+    --lightblue: #2B8FD8;
+    --darkblue: #091B30;
+}
+
 body {
     background-color: #121b2d;
     color: #fff;
@@ -43,4 +50,38 @@ header {
 input {
     outline: none;
     border: none;
+}
+
+.hover-arrow {
+    border: none;
+    background: var(--lightblue);
+    width: 150px;
+    height: 60px;
+    border-radius: 5px;
+    color: white;
+    font: 400 20px Montserrat, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding-left: 5%;
+    transition: 0.2s;
+}
+
+.hover-arrow img {
+    height: 25px;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.hover-arrow:hover {
+    margin-left: 20px;
+    margin-right: 0 !important;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6)
+}
+
+.hover-arrow:hover img {
+    opacity: 1;
+    padding-left: 15px;
 }

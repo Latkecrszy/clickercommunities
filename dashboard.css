@@ -1,10 +1,3 @@
-:root {
-    --darkgray: #1d1d1d;
-    --blue: #142539;
-    --lightblue: #2B8FD8;
-    --darkblue: #091B30;
-}
-
 body {
     display: grid;
     grid-template-columns: 0.65fr 0.35fr;
@@ -45,13 +38,6 @@ header {
     border-radius: 3px;
 }
 
-#page {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    margin: 0;
-}
-
 #personal {
     grid-column-end: 1;
     grid-column-start: 1;
@@ -85,9 +71,9 @@ header {
 }
 
 #join, #create {
-    height: 50%;
+    height: 49%;
     width: 98%;
-    margin: 0 1% 3% 2%;
+    margin: 0 1% 0 2%;
     background: var(--blue);
     border-radius: 3px;
 }
@@ -122,38 +108,45 @@ header {
 .community-header {
     text-align: center;
     font-size: 35px;
-    margin-top: 20px;
+    margin-top: 0;
 }
 
 .community-input {
     width: 70%;
-    height: 30px;
+    height: 35px;
     border: 2px solid var(--darkblue);
     border-radius: 3px;
     transition: 0.2s;
+    box-sizing: border-box;
+    padding: 5px;
     background: none;
+    margin-bottom: 10px;
+    color: white;
+    font-size: 16px;
 }
 
 .community-input::placeholder {
-    color: white;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 15px;
 }
 
 .community-input:focus {
-    border: 4px solid var(--darkblue);
+    outline: 4px solid var(--blue);
     filter: brightness(1.2);
-    outline: none;
 }
 
 #join {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px 10px;
     justify-content: space-evenly;
     align-items: center;
 }
 
-#join-input {
-    margin-top: -50px;
+#create {
+    box-sizing: border-box;
+    padding: 20px 10px;
 }
 
 #upgrades {
@@ -183,4 +176,20 @@ header {
     font-size: 30px;
     margin: 0;
 }
+
+.blurred {
+    filter: blur(0.4);
+}
+
+#create-inputs {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#create-inputs .submit {
+    margin-top: 10px;
+}
+
 

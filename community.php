@@ -1,59 +1,62 @@
 <!DOCTYPE html>
+<?php
+session_start();
+require_once "config.php";
+$dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
+$sth = DBH->prepare("SELECT * FROM membership WHERE community_id=:community_id AND user_id=:user_id");
+$sth->bindValue(':community_id', $_GET['id']);
+$sth->bindValue(':user_id', $_SESSION['admin_id']);
+$sth->execute();
+if (!logged_in()) {
+    echo "something else";
+    //header('Location: login.php');
+} else if (!(isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) || !$sth->fetch()) {
+    //echo "something";
+    //header('Location: dashboard.php');
+}
+
+$sth2 = DBH->prepare("SELECT * FROM communities WHERE id=:id AND type='public'");
+$sth2->bindValue(':id', $_GET['id']);
+$sth2->execute();
+$community = $sth2->fetch();
+if ($community['admin_id'] == $_SESSION['admin_id']) {
+    $admin = true;
+} else {
+    $admin = false;
+}
+
+
+$sth3 = $dbh->prepare('SELECT * FROM shop');
+$sth3->execute();
+$shop = convert_array($sth3->fetchAll(), 'name');
+$sth4 = $dbh->prepare('SELECT * FROM purchased WHERE community_id=:community_id');
+$sth4->bindValue(':community_id', $community['id']);
+$sth4->execute();
+$purchased = convert_array($sth4->fetchAll(), 'item_name');
+?>
 <html lang="en">
     <head>
-        <title>Clicker Community Dashboard</title>
+        <script>
+            let admin = <?=json_encode($admin, JSON_HEX_TAG);?>;
+            console.log(admin)
+        </script>
+        <title>Community</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Hind+Siliguri&family=Montserrat:wght@400;600&family=Raleway:wght@600&display=swap" rel="stylesheet">
         <link href="globals.css" rel="stylesheet">
         <link href="dashboard.css" rel="stylesheet">
+        <link href="community.css" rel="stylesheet">
+        <script src="community.js"></script>
         <script src="dashboard.js"></script>
     </head>
     <body>
-        <?php
-        session_start();
-        require_once "config.php";
-        $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
-        if (!(isset($_SESSION['email']) && isset($_SESSION['session_id']))) {
-            header('Location: login.php');
-        }
-        $email = $_SESSION['email'];
-        if (!logged_in()) {
-            header('Location: login.php');
-        }
-        $sth = $dbh->prepare("SELECT * FROM communities WHERE admin_id=:admin_id AND type='personal'");
-        $sth->bindValue(':admin_id', $_SESSION['admin_id']);
-        $sth->execute();
-        $community = $sth->fetch();
-        $sth3 = $dbh->prepare('SELECT * FROM purchased WHERE community_id=:community_id');
-        $sth3->bindValue(':community_id', $community['id']);
-        $sth3->execute();
-        $purchased = convert_array($sth3->fetchAll(), 'item_name');
-
-        $sth2 = $dbh->prepare('SELECT * FROM shop');
-        $sth2->execute();
-        $shop = convert_array($sth2->fetchAll(), 'name');
-
-        /*var_dump($community);
-        echo "<br><br>";
-        var_dump($shop);
-        echo "<br><br>";
-        var_dump($purchased);
-        echo "<br><br>";
-        print_r($community);
-        echo "<br><br>";
-        print_r($shop);
-        echo "<br><br>";
-        print_r($purchased);
-        echo "<br><br>";*/
-
-        ?>
         <header>
             <h1>Coconut Clicker</h1>
             <a href="home.php" class="header-logo"></a>
             <a href="logout.php" class="header-link underline">Log out</a>
         </header>
-        <div id="personal">
+        <div id="content">
             <div id="click-area">
                 <h2 id="coconut-counter"></h2>
                 <img draggable="false" src="coconut.png" onclick="addCoconuts(1); animateCoconut()" id="coconut" alt="coconut">
@@ -82,23 +85,6 @@
                     echo "</div>";
                 }
                 ?>
-            </div>
-        </div>
-
-        <div id="community">
-            <div id="join">
-                <h1 class="community-header">Join Community</h1>
-                <input type="text" class="community-input" id="join-input" placeholder="Search for communities">
-                <button class="submit hover-arrow" type="submit" onclick="joinCommunity()">Join <img loading="lazy" src="arrow.svg" alt="right arrow"></button>
-            </div>
-
-            <div id="create">
-                <h1 class="community-header">Create Community</h1>
-                <div id="create-inputs">
-                    <input type="text" id="create-input-name" class="community-input" placeholder="Name">
-                    <input type="text" id="create-input-description" class="community-input" placeholder="Description">
-                    <button class="submit hover-arrow" type="submit" onclick="createCommunity()">Create <img loading="lazy" src="arrow.svg" alt="right arrow"></button>
-                </div>
             </div>
         </div>
     </body>
