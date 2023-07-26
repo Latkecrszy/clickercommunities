@@ -18,10 +18,10 @@
             header('Location: login.php');
         }
         $email = $_SESSION['email'];
-        if (!logged_in($dbh, $email, $_SESSION['session_id'])) {
+        if (!logged_in()) {
             header('Location: login.php');
         }
-        $sth = $dbh->prepare('SELECT * FROM communities WHERE admin_id=:admin_id AND type="personal"');
+        $sth = $dbh->prepare("SELECT * FROM communities WHERE admin_id=:admin_id AND type='personal'");
         $sth->bindValue(':admin_id', $_SESSION['admin_id']);
         $sth->execute();
         $community = $sth->fetch();
@@ -32,7 +32,8 @@
 
         $sth2 = $dbh->prepare('SELECT * FROM shop');
         $sth2->execute();
-        $shop = $sth2->fetchAll();
+        $shop = convert_array($sth2->fetchAll(), 'name');
+
         /*var_dump($community);
         echo "<br><br>";
         var_dump($shop);
@@ -55,19 +56,25 @@
         <div id="personal">
             <div id="click-area">
                 <h2 id="coconut-counter"></h2>
-                <img src="coconut.png" onclick="addCoconuts(1); animateCoconut()" id="coconut" alt="coconut">
+                <img draggable="false" src="coconut.png" onclick="addCoconuts(1); animateCoconut()" id="coconut" alt="coconut">
             </div>
             <div id="upgrades">
                 <?php
                 foreach($shop as $item) {
-                    echo "<div class='upgrade' id={$item['name']}>";
-                    if (array_key_exists($item['name'], $purchased)) {
-                        echo "<h2 class='upgrade-count'>{$purchased[$item['name']]['count']}</h2>";
+                    $name = $item['name'];
+                    $cost = $item['cost'];
+                    $description = $item['description'];
+                    $id = $item['id'];
+                    $community_id = $community['id'];
+                    echo "<div class='upgrade' data-cost='$cost' data-community_id='$community_id' data-id='$id' data-name='$name' id='$name' onclick='buyUpgrade(this)'>";
+                    if (array_key_exists($name, $purchased)) {
+                        $count = $purchased[$item['name']]['count'];
+                        echo "<h2 class='upgrade-count'>$count</h2>";
                     } else {
                         echo "<h2 class='upgrade-count'>0</h2>";
                     }
-                    echo "<h2 class='upgrade-name'>{$item['name']}</h2>";
-                    echo "<p class='upgrade-description'>{$item['description']}</p>";
+                    echo "<h2 class='upgrade-name'>$name</h2>";
+                    echo "<p class='upgrade-cost'>$cost</p>";
                     echo "</div>";
                 }
                 ?>
@@ -83,8 +90,8 @@
             <div id="create">
                 <h1 class="community-header">Create Community</h1>
                 <div id="create-inputs">
-                    <input type="text" id="create-input-name" class="community-input">
-                    <input type="text" id="create-input-description" class="community-input">
+                    <input type="text" id="create-input-name" class="community-input" placeholder="Name">
+                    <input type="text" id="create-input-description" class="community-input" placeholder="Description">
                     <button type="submit" onclick="createCommunity()">Create</button>
                 </div>
             </div>
@@ -92,6 +99,9 @@
     </body>
     <script>
         var coconuts = <?=json_encode($community['coconuts'], JSON_HEX_TAG);?>;
+        let purchased = <?=json_encode($purchased, JSON_HEX_TAG);?>;
+        let shop = <?=json_encode($shop, JSON_HEX_TAG);?>;
+        console.log(shop)
         document.getElementById('coconut-counter').innerText = 'Coconuts: ' + coconuts
     </script>
 </html>

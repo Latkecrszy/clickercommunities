@@ -1,0 +1,16 @@
+.header-link, .header-button {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.header-button {
+    background-color: #3b5998;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.header-button:hover {
+    background-color: #2a4374;
+}

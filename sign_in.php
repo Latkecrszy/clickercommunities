@@ -15,8 +15,9 @@
         $sth = $dbh->prepare('SELECT password, id FROM users WHERE email=:email');
         $sth->bindValue(':email', strtolower($_POST['email']));
         $sth->execute();
-        $password = $sth->fetch()['password'];
-        $id = $sth->fetch()['id'];
+        $db = $sth->fetch();
+        $password = $db['password'];
+        $id = $db['id'];
         if (password_verify($_POST['password'], $password)) {
             $_SESSION['email'] = strtolower($_POST['email']);
             $session_id = uniqid();

@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 CREATE TABLE IF NOT EXISTS `communities` (
     `id` int NOT NULL AUTO_INCREMENT,
     `name` varchar(50),
+    `description` varchar(250),
     `type` varchar(50),
     `admin_id` int,
     `coconuts` int,
@@ -30,10 +31,10 @@ CREATE TABLE IF NOT EXISTS `shop` (
 INSERT INTO shop
     (`name`, `cost`, `effect`, `description`)
 VALUES
-    ('cursor', 100, 0.5, 'Clicks for you'),
-    ('tree', 1000, 5, 'Grows coconuts'),
-    ('gardener', 10000, 100, 'Manages and grows coconut trees'),
-    ('farm', 100000, 2000, 'Grows more coconut trees');
+    ('cursor', 100, 1, 'Clicks for you'),
+    ('tree', 1000, 10, 'Grows coconuts'),
+    ('gardener', 10000, 200, 'Manages and grows coconut trees'),
+    ('farm', 100000, 5000, 'Grows more coconut trees');
 
 
 CREATE TABLE IF NOT EXISTS `membership` (
