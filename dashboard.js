@@ -59,7 +59,6 @@ async function createCommunity() {
     let id = await fetch(`create-community.php?name=${name}&description=${description}`)
         .then(resp => resp.text())
     id = id.split('<body>')[1].split('</body>')[0]
-    console.log('gonna replace')
     // If the id is valid, redirect to the newly created community
     if (!Number.isNaN(id)) {
         location.replace(`community.php?id=${id}`)
@@ -90,7 +89,6 @@ async function buyUpgrade(el) {
     await addCoconutsToDB();
     // Send request to buyupgrade.php to purchase the upgrade
     await fetch(`buyupgrade.php?name=${el.dataset.name}&id=${el.dataset.id}&community_id=${el.dataset.community_id}`)
-        .then(results => console.log(results.text()))
     // Update number of owned upgrades
     el.children[0].innerText = (parseInt(el.children[0].innerText)+1).toString()
     location.reload()

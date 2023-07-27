@@ -114,7 +114,6 @@
         let purchased = <?=json_encode($purchased, JSON_HEX_TAG);?>;
         let shop = <?=json_encode($shop, JSON_HEX_TAG);?>;
         const community_id = <?=json_encode($community_id, JSON_HEX_TAG);?>;
-        console.log(shop)
         // Update coconut count on the page
         document.getElementById('coconut-counter').innerText = 'Coconuts: ' + coconuts
     </script>

@@ -56,7 +56,7 @@ $purchased = convert_array($sth4->fetchAll(), 'item_name');
 <!-- Header of site with community name and navigation links -->
 <header>
     <h2><img id="coconut-small" draggable="false" src="coconut.png" onclick="addCoconuts(1); animateCoconut('coconut-small')" alt="coconut"> Coconut Clicker</h2>
-    <h1><?=$community['name']?></h1>
+    <h1><?=htmlspecialchars($community['name'])?></h1>
     <a href="home.php" class="header-logo"></a>
     <?php
     if ($admin) {
