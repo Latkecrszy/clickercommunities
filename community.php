@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <?php
+// Start session and require config file
 session_start();
 require_once "config.php";
-$dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
+
+// Create and execute SQL query to check if user is in community
 $sth = DBH->prepare("SELECT * FROM membership WHERE community_id=:community_id AND user_id=:user_id");
 $sth->bindValue(':community_id', $_GET['id']);
 $sth->bindValue(':user_id', $_SESSION['admin_id']);
 $sth->execute();
+
+// Redirect back to login page if user isn't logged in
 if (!logged_in()) {
-    echo "something else";
     header('Location: login.php');
-} else if (!(isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) || !$sth->fetch()) {
-    //echo "something";
+}
+// Redirect back to dashboard if inputs aren't valid or user isn't in community
+else if (!(isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) || !$sth->fetch()) {
     header('Location: dashboard.php');
 }
 
@@ -29,10 +33,10 @@ if ($community['admin_id'] == $_SESSION['admin_id']) {
 }
 
 // Fetch shop items and purchased items for the community
-$sth3 = $dbh->prepare('SELECT * FROM shop');
+$sth3 = DBH->prepare('SELECT * FROM shop');
 $sth3->execute();
 $shop = convert_array($sth3->fetchAll(), 'name');
-$sth4 = $dbh->prepare('SELECT * FROM purchased WHERE community_id=:community_id');
+$sth4 = DBH->prepare('SELECT * FROM purchased WHERE community_id=:community_id');
 $sth4->bindValue(':community_id', $community['id']);
 $sth4->execute();
 $purchased = convert_array($sth4->fetchAll(), 'item_name');
@@ -54,6 +58,11 @@ $purchased = convert_array($sth4->fetchAll(), 'item_name');
     <h2><img id="coconut-small" draggable="false" src="coconut.png" onclick="addCoconuts(1); animateCoconut('coconut-small')" alt="coconut"> Coconut Clicker</h2>
     <h1><?=$community['name']?></h1>
     <a href="home.php" class="header-logo"></a>
+    <?php
+    if ($admin) {
+        echo "<a href='delete-community.php?id=$community_id' class='header-link underline'>Delete Community</a>";
+    }
+    ?>
     <a href="dashboard.php" class="header-link underline">Dashboard</a>
     <a href="logout.php" class="header-link underline">Log out</a>
 </header>
@@ -66,7 +75,6 @@ $purchased = convert_array($sth4->fetchAll(), 'item_name');
     <?php
     // Display upgrades for the admin of the community
     if ($admin) {
-
         echo '<div id="upgrades">';
         foreach($shop as $item) {
             $name = $item['name'];
@@ -94,15 +102,14 @@ $purchased = convert_array($sth4->fetchAll(), 'item_name');
 </div>
 </body>
 <script>
+    // Define constants and create coconuts global
     var coconuts = <?=json_encode($community['coconuts'], JSON_HEX_TAG);?>;
     let purchased = <?=json_encode($purchased, JSON_HEX_TAG);?>;
     let shop = <?=json_encode($shop, JSON_HEX_TAG);?>;
-    console.log(shop)
     document.getElementById('coconut-counter').innerText = 'Coconuts: ' + coconuts
     let admin = <?=json_encode($admin, JSON_HEX_TAG);?>;
-    console.log(admin)
     const community_id = <?=json_encode($community_id, JSON_HEX_TAG);?>;
-    // Add 'member' class to click-area if the user is not the admin
+    // Add 'member' class to click-area if the user is not the admin to remove the ability to purchase upgrades
     if (!admin) {
         document.getElementById('click-area').classList.add('member')
     }
