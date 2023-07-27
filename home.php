@@ -7,13 +7,14 @@
     </head>
     <body>
         <?php
+            // Start the PHP session and include the config file
             session_start();
             require_once "config.php";
-            $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
 
-            /*if (isset($_SESSION['email']) && isset($_SESSION['id']) && logged_in($dbh, $_SESSION['email'], $_SESSION['id'])) {
+            // If user is logged in, redirect to the dashboard
+            if (logged_in()) {
                 header('Location: dashboard.php');
-            }*/
+            }
             ?>
         <header>
             <a href="dashboard.php" class="header-link underline">Dashboard</a>

@@ -16,8 +16,28 @@ header {
     background-color: #1c2a4d;
     padding: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    position: relative
+}
+
+header h1 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0)
+}
+
+header h2 {
+    position: absolute;
+    left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+h2 img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
 }
 
 .underline {
@@ -45,6 +65,7 @@ header {
 .header-link {
     text-decoration: none;
     color: white;
+    margin: 0 20px;
 }
 
 input {

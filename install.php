@@ -4,12 +4,13 @@
     </head>
     <body>
         <?php
+        // Check if config.php exists
         if (file_exists('config.php')) {
             require_once "config.php";
             try {
-                $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
+                // Execute SQL setup code from initialize.sql
                 $query = file_get_contents('initialize.sql');
-                $dbh->exec($query);
+                DBH->exec($query);
                 echo "<p>Successfully installed databases</p>";
             }
             catch (PDOException $e) {

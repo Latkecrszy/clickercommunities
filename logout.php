@@ -5,14 +5,16 @@
     </head>
     <body>
         <?php
+        // Start the PHP session and include the config file
         session_start();
         require_once "config.php";
-        $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
-        if (logged_in($dbh, $_SESSION['email'], $_SESSION['id'])) {
-            $sth = $dbh->prepare('DELETE FROM sessions WHERE email=:email');
+        // Delete the user's session from DB
+        if (logged_in()) {
+            $sth = DBH->prepare('DELETE FROM sessions WHERE email=:email');
             $sth->bindValue(':email', $_SESSION['email']);
             $sth->execute();
         }
+        // Destroy session
         $_SESSION = array();
 
         // If it's desired to kill the session, also delete the session cookie.

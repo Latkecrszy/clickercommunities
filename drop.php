@@ -7,9 +7,9 @@
         if (file_exists('config.php')) {
             require_once "config.php";
             try {
-                $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
+                // Drop all tables
                 $query = 'DROP TABLE IF EXISTS users, communities, shop, membership, purchased';
-                $dbh->exec($query);
+                DBH->exec($query);
                 echo "<p>Successfully dropped databases</p>";
             }
             catch (PDOException $e) {
@@ -18,7 +18,6 @@
         } else {
             echo "<p style='color: red'>No perms</p>";
         }
-
         ?>
     </body>
 </html>

@@ -22,8 +22,6 @@ header {
     padding: 5px 12px;
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 
@@ -87,18 +85,30 @@ header {
     left: 50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
-
 }
 
 #coconut:hover {
-    height: 350px;
-    width: 350px;
+    scale: 1.1;
+    transform: translate(-45%, -45%);
+}
+
+#coconut-small {
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+#coconut-small:hover {
+    scale: 1.1;
+}
+
+#coconut-small.clicked {
+    scale: 1.2;
 }
 
 #coconut.clicked {
     transition: 0.1s;
-    height: 325px !important;
-    width: 325px !important;
+    scale: 1.2;
+    transform: translate(-42%, -42%);
 }
 
 #coconut-counter {

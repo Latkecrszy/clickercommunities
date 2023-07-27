@@ -6,13 +6,7 @@
         <link href="login.css" rel="stylesheet">
     </head>
     <body>
-        <?php
-        require_once "config.php";
-
-        $dbh = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
-        ?>
         <header>
-            <a href="dashboard.php" class="header-logo">Home</a>
             <a href="signup.php" class="header-button">Sign up</a>
         </header>
         <form action="sign_in.php" method="POST">
