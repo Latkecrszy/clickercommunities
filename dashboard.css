@@ -1,7 +1,7 @@
 body {
     display: grid;
     grid-template-columns: 0.65fr 0.35fr;
-    grid-template-rows: 20fr 40fr 40fr;
+    grid-template-rows: 150px 40fr 40fr;
     row-gap: 10px;
     font-family: Montserrat, sans-serif;
     color: white;

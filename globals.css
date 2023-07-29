@@ -86,7 +86,7 @@ input {
     align-items: center;
     cursor: pointer;
     box-sizing: border-box;
-    padding-left: 5%;
+    padding-left: 20px;
     transition: 0.2s;
 }
 

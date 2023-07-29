@@ -24,6 +24,9 @@ $sth2 = DBH->prepare("SELECT * FROM communities WHERE id=:id AND type='public'")
 $sth2->bindValue(':id', $_GET['id']);
 $sth2->execute();
 $community = $sth2->fetch();
+if (!$community) {
+    header('Location: dashboard.php');
+}
 $community_id = $community['id'];
 // Check if the logged-in user is the admin of the community
 if ($community['admin_id'] == $_SESSION['admin_id']) {
